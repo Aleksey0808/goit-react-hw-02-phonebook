@@ -1,14 +1,25 @@
-export function ContactList({ filter, onDeleteContacts }) {
+import React from 'react';
+import { Contact, Button } from './ContactList.styles';
+import PropTypes from 'prop-types';
+
+function ContactList({ filter, onDeleteContacts }) {
   return (
     <ul>
       {filter.map(({ id, name, number }) => {
         return (
-          <li key={id}>
+          <Contact key={id}>
             {name} - {number}
-            <button onClick={() => onDeleteContacts(id)}>Delete</button>
-          </li>
+            <Button onClick={() => onDeleteContacts(id)}>Delete</Button>
+          </Contact>
         );
       })}
     </ul>
   );
 }
+
+export default ContactList;
+
+ContactList.propTypes = {
+  filter: PropTypes.func.isRequired,
+  onDeleteContacts: PropTypes.func.isRequired,
+};

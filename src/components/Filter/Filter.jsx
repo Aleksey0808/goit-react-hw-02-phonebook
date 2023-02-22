@@ -1,7 +1,11 @@
-export function Filter({ filter, changeFilter }) {
+import React from 'react';
+import { Label, Text } from './Filter.styled';
+import PropTypes from 'prop-types';
+
+function Filter({ filter, changeFilter }) {
   return (
-    <label>
-      Find contacts by name
+    <Label>
+      <Text>Find contacts by name </Text>
       <br />
       <input
         type="text"
@@ -12,6 +16,13 @@ export function Filter({ filter, changeFilter }) {
         required
         onChange={changeFilter}
       />
-    </label>
+    </Label>
   );
 }
+
+export default Filter;
+
+Filter.propType = {
+  filter: PropTypes.string.isRequired,
+  changeFilter: PropTypes.func.isRequired,
+};

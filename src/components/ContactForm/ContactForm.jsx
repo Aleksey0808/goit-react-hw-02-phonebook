@@ -1,6 +1,11 @@
 import { Component } from 'react';
+import { Form, Label, Text } from './ContactForm.styles';
+import PropTypes from 'prop-types';
 
-export class ContactForm extends Component {
+class ContactForm extends Component {
+  static = {
+    onSubmit: PropTypes.func.isRequired,
+  };
   state = {
     name: '',
     number: '',
@@ -30,38 +35,41 @@ export class ContactForm extends Component {
   };
 
   render() {
+    const { name, number } = this.state;
+    const handleSubmit = this.handleSubmit;
+    const handleInputChange = this.handleInputChange;
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label htmlFor="">
-          Name
-          <br />
+      <Form onSubmit={handleSubmit}>
+        <Label htmlFor="">
+          <Text>Name</Text>
           <input
             type="text"
-            value={this.state.name}
+            value={name}
             name="name"
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
             required
-            onChange={this.handleInputChange}
+            onChange={handleInputChange}
           />
-        </label>
-        <br />
-        <label htmlFor="">
-          Phone
-          <br />
+        </Label>
+
+        <Label htmlFor="">
+          <Text>Phone</Text>
           <input
             type="tel"
-            value={this.state.number}
+            value={number}
             name="number"
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             required
-            onChange={this.handleInputChange}
+            onChange={handleInputChange}
           />
-        </label>
-        <br />
+        </Label>
+
         <button type="submit">Add contact</button>
-      </form>
+      </Form>
     );
   }
 }
+
+export default ContactForm;

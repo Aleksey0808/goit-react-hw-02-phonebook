@@ -1,9 +1,10 @@
 import { nanoid } from 'nanoid';
 import React, { Component } from 'react';
 import { Report } from 'notiflix/build/notiflix-report-aio';
-import { ContactForm } from './ContactForm/ContactForm';
-import { Filter } from './Filter/Filter';
-import { ContactList } from './ContactList/ContactList';
+import ContactForm from './ContactForm/ContactForm';
+import Filter from './Filter/Filter';
+import ContactList from './ContactList/ContactList';
+import { Container, Title } from './App.styles';
 
 export class App extends Component {
   state = {
@@ -48,27 +49,25 @@ export class App extends Component {
   };
 
   deleteContacts = id => {
-    this.setState(prevState => ({
-      contacts: prevState.contacts.filter(contact => contact.id !== id),
+    this.setState(({ contacts }) => ({
+      contacts: contacts.filter(contact => contact.id !== id),
     }));
   };
 
   render() {
     const filterName = this.filterContacts();
+    const addContact = this.addContact;
+    const handleFilterChange = this.handleFilterChange;
+    const deleteContacts = this.deleteContacts;
+    const { filter } = this.state;
     return (
-      <div>
-        <h2>Phonebook</h2>
-        <ContactForm onSubmit={this.addContact} />
-        <h2>Contacts</h2>
-        <Filter
-          filter={this.state.filter}
-          changeFilter={this.handleFilterChange}
-        />
-        <ContactList
-          filter={filterName}
-          onDeleteContacts={this.deleteContacts}
-        />
-      </div>
+      <Container>
+        <Title>Phonebook</Title>
+        <ContactForm onSubmit={addContact} />
+        <Title>Contacts</Title>
+        <Filter filter={filter} changeFilter={handleFilterChange} />
+        <ContactList filter={filterName} onDeleteContacts={deleteContacts} />
+      </Container>
     );
   }
 }
