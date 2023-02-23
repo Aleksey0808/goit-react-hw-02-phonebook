@@ -17,9 +17,9 @@ function ContactList({ filter, onDeleteContacts }) {
   );
 }
 
-export default ContactList;
-
 ContactList.propTypes = {
-  filter: PropTypes.func.isRequired,
+  filter: PropTypes.array.isRequired,
   onDeleteContacts: PropTypes.func.isRequired,
 };
+
+export default ContactList;
